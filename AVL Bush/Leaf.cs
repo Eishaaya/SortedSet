@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AVL_Bush
 {
-    class Leaf<T>
+    public class Leaf<T>
         where T: IComparable
     {
         public T value;

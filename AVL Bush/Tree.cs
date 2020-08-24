@@ -8,7 +8,7 @@ namespace AVL_Bush
         where T : IComparable
     {
         public Leaf<T> root;
-
+        public int count = 0;
         public Tree()
         {
             root = null;
@@ -64,6 +64,7 @@ namespace AVL_Bush
             if (root == null)
             {
                 root = new Leaf<T>(value);
+                count++;
                 return;
             }
             else
@@ -79,6 +80,7 @@ namespace AVL_Bush
                 {
                     traveller.right = new Leaf<T>(value);
                     traveller.right.parent = traveller;
+                    count++;
                 }
                 else
                 {
@@ -91,6 +93,7 @@ namespace AVL_Bush
                 {
                     traveller.left = new Leaf<T>(value);
                     traveller.left.parent = traveller;
+                    count++;
                 }
                 else
                 {
@@ -194,6 +197,7 @@ namespace AVL_Bush
         {
             if (traveller.value.Equals(value)) // deletion code
             {
+                count--;
                 if (traveller.left == null && traveller.right == null) // no kids
                 {
                     if (isRoot)

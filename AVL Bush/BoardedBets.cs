@@ -4,10 +4,12 @@ using System.Text;
 
 namespace AVL_Bush
 {
-    class BoardedBets<T>
+    public class BoardedBets<T>
         where T : IComparable
     {
         Tree<T> bush;
+
+        public int Count => bush.count;
         public BoardedBets()
         {
             bush = new Tree<T>();
@@ -76,9 +78,9 @@ namespace AVL_Bush
         }
         public T floor(T value)
         {
-            if (bush == null || bush.root == null || !contains(value))
+            if (bush == null || bush.root == null)
             {
-                return default;
+                throw new SortedSetException("Tree is empty/null");
             }
             return floor(value, bush.root, default);
         }
@@ -88,6 +90,10 @@ namespace AVL_Bush
             {
                 if (location.left == null)
                 {
+                    if (closest == null)
+                    {
+                        throw new SortedSetException($"All values are larger than input");
+                    }
                     return closest.value;
                 }
                 return floor(value, location.left, closest);
@@ -99,7 +105,7 @@ namespace AVL_Bush
                     closest = location;
                 }
                 if (location.right == null)
-                {
+                {                    
                     return closest.value;
                 }
                 return floor(value, location.right, closest);
@@ -107,9 +113,9 @@ namespace AVL_Bush
         }
         public T ceiling(T value)
         {
-            if (bush == null || bush.root == null || !contains(value))
+            if (bush == null || bush.root == null)
             {
-                return default;
+                throw new SortedSetException("Tree is empty/null");
             }
             return ceiling(value, bush.root, default);
         }
@@ -119,6 +125,10 @@ namespace AVL_Bush
             {
                 if (location.right == null)
                 {
+                    if (closest == null)
+                    {
+                        throw new SortedSetException($"All values are smaller than input");
+                    }
                     return closest.value;
                 }
                 return ceiling(value, location.right, closest);
